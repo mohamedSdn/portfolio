@@ -1,7 +1,13 @@
-const TerminalResult = () => {
-    return (
-        <div className="w-full h-full bg-[#222] text-white overflow-y-auto">
+import { FC } from "react";
 
+interface Props {
+    result: string | null,
+}
+
+const TerminalResult: FC<Props> = ({ result }) => {
+    return (
+        <div>
+            {result}
         </div>
     )
 }

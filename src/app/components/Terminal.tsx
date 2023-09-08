@@ -1,10 +1,26 @@
+import { Fragment, useContext } from "react";
 import TerminalQuery from "./TerminalQuery";
+import { AppContext } from "@/contexts/app.context";
+import TerminalResult from "./TerminalResult";
 
 const Terminal = () => {
+
+    const { queryList } = useContext(AppContext);
+
     return (
         <div className="w-full h-full bg-[#222] text-white overflow-y-auto">
             Portfolio [Version 0.1.0]
-            <TerminalQuery />
+            {
+                queryList.map((query, index) => {
+                    return (
+                        <Fragment key={index}>
+                            <TerminalQuery command={query.command} />
+                            <TerminalResult result={query.result} />
+                        </Fragment>
+                    )
+                })
+            }
+            <TerminalQuery disabled={false} command="" />
         </div>
     )
 }

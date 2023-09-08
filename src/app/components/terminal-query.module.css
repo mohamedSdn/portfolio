@@ -1,0 +1,29 @@
+.command-span {
+    position: absolute;
+}
+
+.command-span::after {
+    content: "";
+    width: 6px;
+    position: absolute;
+    top: 50%;
+    height: 1rem;
+    transform: translateY(-50%);
+    right: -8px;
+    background-color: white;
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
