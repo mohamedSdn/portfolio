@@ -1,7 +1,7 @@
 import { IQuery } from "@/interfaces/query.interface";
 import { Dispatch, SetStateAction, createContext } from "react";
 
-interface IAppContext {
+export interface IAppContext {
     queryList: IQuery[];
     setQueryList: Dispatch<SetStateAction<IQuery[]>>;
     currentDirectory: string;

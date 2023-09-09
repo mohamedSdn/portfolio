@@ -1,8 +1,7 @@
 import { AppContext } from "@/contexts/app.context";
-import { processCommand } from "@/utils/helpers.util";
 import { FC, FocusEvent, KeyboardEvent, useContext, useState } from "react";
 import styles from './terminal-query.module.css';
-import { KnownCommands } from "@/utils/commands.util";
+import { KnownCommands, processCommand } from "@/utils/commands.util";
 
 interface Props {
     command: string,
@@ -12,7 +11,7 @@ interface Props {
 const TerminalQuery: FC<Props> = ({ command: _command, disabled = true }) => {
 
     const [command, setCommand] = useState(_command ?? "");
-    const { setQueryList, currentDirectory } = useContext(AppContext);
+    const appContext = useContext(AppContext);
 
     const preventBlur = (e: FocusEvent<HTMLInputElement>) => {
         e.target.focus();
@@ -24,19 +23,15 @@ const TerminalQuery: FC<Props> = ({ command: _command, disabled = true }) => {
         }
         // clear field
         setCommand("");
-        if (command === KnownCommands.CLEAR) {
-            setQueryList([]);
-            return;
-        }
-        const result = processCommand(command);
-        setQueryList(prev => [...prev, { command, result }]);
+        const result = processCommand(command, appContext, () => { });
+        appContext.setQueryList(prev => [...prev, { command, result }]);
     }
 
     return (
         <div className="flex">
             <span className="text-[#72dd34]">you@portfolio</span>
             <span className="mx-[2px]">:</span>
-            <span className="text-[#628ac5]">{currentDirectory}</span>
+            <span className="text-[#628ac5]">{appContext.currentDirectory}</span>
             <span>$</span>
             <div className="relative grow ml-1">
                 {
