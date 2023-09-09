@@ -1,7 +1,7 @@
 import { AppContext } from "@/contexts/app.context";
+import { executeCommand } from "@/utils/commands.util";
 import { FC, FocusEvent, KeyboardEvent, useContext, useState } from "react";
 import styles from './terminal-query.module.css';
-import { KnownCommands, processCommand } from "@/utils/commands.util";
 
 interface Props {
     command: string,
@@ -23,8 +23,7 @@ const TerminalQuery: FC<Props> = ({ command: _command, disabled = true }) => {
         }
         // clear field
         setCommand("");
-        const result = processCommand(command, appContext, () => { });
-        appContext.setQueryList(prev => [...prev, { command, result }]);
+        executeCommand(command, appContext, {});
     }
 
     return (

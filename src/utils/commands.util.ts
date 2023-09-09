@@ -12,7 +12,7 @@ export enum KnownCommands {
 
 export const KNOWN_COMMANDS = [...Object.values(KnownCommands)] as string[];
 
-export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContext, callback: Function, extraParams?: Record<string, any>) => string> = {
+export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContext, extraParams: Record<string, any>) => void> = {
     [KnownCommands.HELP]: help,
     [KnownCommands.CLEAR]: clear,
     [KnownCommands.LS]: ls,
@@ -21,7 +21,7 @@ export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContex
     [KnownCommands.WHOAMI]: whoami,
 }
 
-export const processCommand = (command: string, appContext: IAppContext, callback: Function, extraParams?: Record<string, any>) => {
+export const executeCommand = (command: string, appContext: IAppContext, extraParams: Record<string, any>) => {
     if (!command) {
         return null;
     }
@@ -29,5 +29,5 @@ export const processCommand = (command: string, appContext: IAppContext, callbac
     if (!algo) {
         return "Command not found, type 'help' for a list of all available commands";
     }
-    return algo(appContext, callback, extraParams);
+    algo(appContext, extraParams);
 }
