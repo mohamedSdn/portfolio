@@ -7,11 +7,14 @@ import { IQuery } from "@/interfaces/query.interface";
 export default function Home() {
 
     const [queryList, setQueryList] = useState<IQuery[]>([]);
+    const [currentDirectory, setCurrentDirectory] = useState<string>("/");
 
     return (
         <AppContext.Provider value={{
             queryList,
-            setQueryList
+            setQueryList,
+            currentDirectory,
+            setCurrentDirectory
         }}>
             <main className="h-full">
                 <Terminal />

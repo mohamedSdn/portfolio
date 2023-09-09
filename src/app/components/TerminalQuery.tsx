@@ -12,7 +12,7 @@ interface Props {
 const TerminalQuery: FC<Props> = ({ command: _command, disabled = true }) => {
 
     const [command, setCommand] = useState(_command ?? "");
-    const { setQueryList } = useContext(AppContext);
+    const { setQueryList, currentDirectory } = useContext(AppContext);
 
     const preventBlur = (e: FocusEvent<HTMLInputElement>) => {
         e.target.focus();
@@ -36,7 +36,7 @@ const TerminalQuery: FC<Props> = ({ command: _command, disabled = true }) => {
         <div className="flex">
             <span className="text-[#72dd34]">you@portfolio</span>
             <span className="mx-[2px]">:</span>
-            <span className="text-[#628ac5]">/home</span>
+            <span className="text-[#628ac5]">{currentDirectory}</span>
             <span>$</span>
             <div className="relative grow ml-1">
                 {
