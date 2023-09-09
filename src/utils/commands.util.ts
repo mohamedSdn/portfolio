@@ -27,7 +27,8 @@ export const executeCommand = (command: string, appContext: IAppContext, extraPa
     }
     const algo = COMMAND_ALGO_MAPPING[command as KnownCommands];
     if (!algo) {
-        return "Command not found, type 'help' for a list of all available commands";
+        appContext.setQueryList(prev => [...prev, { command, result: "Command not found, type 'help' for a list of all available commands" }]);
+        return;
     }
     algo(appContext, extraParams);
 }
