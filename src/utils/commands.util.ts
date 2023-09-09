@@ -1,16 +1,6 @@
 import { cd, clear, help, ls, pwd, whoami } from "@/algorithms";
 import { IAppContext } from "@/contexts/app.context";
-
-export enum KnownCommands {
-    HELP = "help",
-    CLEAR = "clear",
-    LS = "ls",
-    CD = "cd",
-    PWD = "pwd",
-    WHOAMI = "whoami",
-}
-
-export const KNOWN_COMMANDS = [...Object.values(KnownCommands)] as string[];
+import { KnownCommands } from "./constants.util";
 
 export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContext, extraParams: Record<string, any>) => void> = {
     [KnownCommands.HELP]: help,
