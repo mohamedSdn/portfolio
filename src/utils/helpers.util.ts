@@ -1,4 +1,4 @@
-import { KNOWN_COMMANDS } from "./constants.util";
+import { KNOWN_COMMANDS } from "./commands.util";
 
 export const processCommand = (command: string) => {
     if (!command) {
