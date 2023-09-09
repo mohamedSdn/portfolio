@@ -13,7 +13,8 @@ export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContex
 
 export const executeCommand = (command: string, appContext: IAppContext, extraParams: Record<string, any>) => {
     if (!command) {
-        return null;
+        appContext.setQueryList(prev => [...prev, { command, result: null }]);
+        return;
     }
     const algo = COMMAND_ALGO_MAPPING[command as KnownCommands];
     if (!algo) {
