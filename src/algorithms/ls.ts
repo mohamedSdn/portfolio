@@ -4,7 +4,7 @@ import { formatLsOutput } from "@/utils/helpers.util";
 
 export const ls = ({ currentDirectory, setQueryList }: IAppContext, fullCommand: string, extraParams: string[]) => {
     if (extraParams.length > 1) {
-        setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: "'ls' only takes zero or one argument only" }]);
+        setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: "'ls' takes one or zero arguments only" }]);
         return;
     }
     let fullPath = extraParams[0] ?

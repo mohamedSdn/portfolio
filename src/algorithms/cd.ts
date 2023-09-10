@@ -4,7 +4,7 @@ import { absGoTo } from "@/utils/files.util";
 
 export const cd = ({ currentDirectory, setCurrentDirectory, setQueryList }: IAppContext, fullCommand: string, extraParams: string[]) => {
     if (extraParams.length > 1) {
-        setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: "'cd' only takes one argument" }]);
+        setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: "'cd' takes one or zero arguments only" }]);
         return;
     }
     if (extraParams.length === 0) {
