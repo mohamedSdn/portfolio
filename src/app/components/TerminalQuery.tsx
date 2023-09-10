@@ -23,7 +23,7 @@ const TerminalQuery: FC<Props> = ({ command: _command, disabled = true }) => {
         }
         // clear field
         setCommand("");
-        executeCommand(command, appContext, {});
+        executeCommand(command, appContext);
     }
 
     return (
@@ -39,10 +39,12 @@ const TerminalQuery: FC<Props> = ({ command: _command, disabled = true }) => {
                         type="text" disabled={disabled} autoFocus onBlur={preventBlur}
                         value={command} onChange={(e) => setCommand(e.target.value)}
                         onKeyUp={handleEnterPressed}
-                        className="bg-transparent outline-none absolute left-0 w-full caret-transparent z-[-1]"
+                        className="bg-transparent outline-none absolute left-0 w-full caret-transparent opacity-0 z-[-1]"
                     />
                 }
-                <span className={`${disabled ? "" : styles["command-span"]} left-0 h-full`}>{command}</span>
+                <span className={`${disabled ? "" : styles["command-span"]} left-0 h-full`}>
+                    <pre>{command}</pre>
+                </span>
             </div>
         </div>
     )
