@@ -1,5 +1,6 @@
 import { IAppContext } from "@/contexts/app.context";
 import { absGoTo } from "@/utils/files.util";
+import { formatLsOutput } from "@/utils/helpers.util";
 
 export const ls = ({ currentDirectory, setQueryList }: IAppContext, fullCommand: string, extraParams: string[]) => {
     if (extraParams.length > 1) {
@@ -11,7 +12,7 @@ export const ls = ({ currentDirectory, setQueryList }: IAppContext, fullCommand:
         currentDirectory;
     try {
         const result = absGoTo(fullPath);
-        const filesToDisplay = result.map(file => file.name).join(" ");
+        const filesToDisplay = formatLsOutput(result);
         setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: filesToDisplay }]);
     } catch (error: any) {
         setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: error.toString() }]);

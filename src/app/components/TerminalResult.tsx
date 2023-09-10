@@ -6,9 +6,7 @@ interface Props {
 
 const TerminalResult: FC<Props> = ({ result }) => {
     return (
-        <div>
-            {result}
-        </div>
+        <div dangerouslySetInnerHTML={{ __html: result ?? "" }}></div>
     )
 }
 
