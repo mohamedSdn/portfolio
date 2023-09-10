@@ -1,6 +1,5 @@
 import { IAppContext } from "@/contexts/app.context";
-import { KnownCommands } from "@/utils/constants.util";
 
-export const pwd = ({ currentDirectory, setQueryList }: IAppContext) => {
-    setQueryList(prev => [...prev, { command: KnownCommands.PWD, result: currentDirectory }]);
+export const pwd = ({ currentDirectory, setQueryList }: IAppContext, fullCommand: string,) => {
+    setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: currentDirectory }]);
 }

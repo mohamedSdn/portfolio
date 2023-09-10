@@ -2,12 +2,12 @@ interface IFileBase {
     name: string;
 }
 
-interface IDirectory extends IFileBase {
+export interface IDirectory extends IFileBase {
     isDirectory: true;
     children: IFile[];
 }
 
-interface ILeafFile extends IFileBase {
+export interface ILeafFile extends IFileBase {
     isDirectory: false;
 }
 

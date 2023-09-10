@@ -5,7 +5,7 @@ import TerminalResult from "./TerminalResult";
 
 const Terminal = () => {
 
-    const { queryList } = useContext(AppContext);
+    const { queryList, currentDirectory } = useContext(AppContext);
 
     return (
         <div className="w-full h-full bg-[#222] text-white overflow-y-auto">
@@ -14,13 +14,13 @@ const Terminal = () => {
                 queryList.map((query, index) => {
                     return (
                         <Fragment key={index}>
-                            <TerminalQuery command={query.command} />
+                            <TerminalQuery directory={query.directory} command={query.command} />
                             <TerminalResult result={query.result} />
                         </Fragment>
                     )
                 })
             }
-            <TerminalQuery disabled={false} command="" />
+            <TerminalQuery directory={currentDirectory} disabled={false} command="" />
         </div>
     )
 }

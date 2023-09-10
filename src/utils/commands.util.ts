@@ -2,7 +2,7 @@ import { cd, clear, help, ls, pwd, whoami } from "@/algorithms";
 import { IAppContext } from "@/contexts/app.context";
 import { KnownCommands } from "./constants.util";
 
-export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContext, extraParams: string[]) => void> = {
+export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContext, fullCommand: string, extraParams: string[]) => void> = {
     [KnownCommands.HELP]: help,
     [KnownCommands.CLEAR]: clear,
     [KnownCommands.LS]: ls,
@@ -13,16 +13,16 @@ export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContex
 
 export const executeCommand = (command: string, appContext: IAppContext) => {
     if (!command) {
-        appContext.setQueryList(prev => [...prev, { command, result: null }]);
+        appContext.setQueryList(prev => [...prev, { directory: appContext.currentDirectory, command, result: null }]);
         return;
     }
     const [main, ...args] = parseCommand(command);
     const algo = COMMAND_ALGO_MAPPING[main as KnownCommands];
     if (!algo) {
-        appContext.setQueryList(prev => [...prev, { command, result: "Command not found, type 'help' for a list of all available commands" }]);
+        appContext.setQueryList(prev => [...prev, { directory: appContext.currentDirectory, command, result: "Command not found, type 'help' for a list of all available commands" }]);
         return;
     }
-    algo(appContext, args);
+    algo(appContext, command, args);
 }
 
 const parseCommand = (command: string) => command.split(" ").filter(Boolean);

@@ -1,14 +1,15 @@
 import { AppContext } from "@/contexts/app.context";
 import { executeCommand } from "@/utils/commands.util";
-import { FC, FocusEvent, KeyboardEvent, useContext, useState } from "react";
+import { FC, FocusEvent, KeyboardEvent, useContext, useState, useRef } from "react";
 import styles from './terminal-query.module.css';
 
 interface Props {
+    directory: string,
     command: string,
     disabled?: boolean,
 }
 
-const TerminalQuery: FC<Props> = ({ command: _command, disabled = true }) => {
+const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = true }) => {
 
     const [command, setCommand] = useState(_command ?? "");
     const appContext = useContext(AppContext);
@@ -30,7 +31,7 @@ const TerminalQuery: FC<Props> = ({ command: _command, disabled = true }) => {
         <div className="flex">
             <span className="text-[#72dd34]">you@portfolio</span>
             <span className="mx-[2px]">:</span>
-            <span className="text-[#628ac5]">{appContext.currentDirectory}</span>
+            <span className="text-[#628ac5]">{directory}</span>
             <span>$</span>
             <div className="relative grow ml-1">
                 {
