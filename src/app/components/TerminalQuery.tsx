@@ -1,6 +1,6 @@
 import { AppContext } from "@/contexts/app.context";
 import { executeCommand } from "@/utils/commands.util";
-import { FC, FocusEvent, KeyboardEvent, useContext, useState, useRef } from "react";
+import { FC, FocusEvent, KeyboardEvent, useContext, useRef, useState } from "react";
 import styles from './terminal-query.module.css';
 
 interface Props {
@@ -13,18 +13,31 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
 
     const [command, setCommand] = useState(_command ?? "");
     const appContext = useContext(AppContext);
+    const commandHistoryIndex = useRef(0);
 
     const preventBlur = (e: FocusEvent<HTMLInputElement>) => {
         e.target.focus();
     }
 
-    const handleEnterPressed = (e: KeyboardEvent) => {
-        if (e.code !== "Enter") {
-            return;
+    const handleKeyPressed = (e: KeyboardEvent) => {
+        if (e.code === "Enter") {
+            // clear field
+            setCommand("");
+            executeCommand(command, appContext);
+        } else if (e.code === "ArrowUp") {
+            setCommandFromHistory("up");
+        } else if (e.code === "ArrowDown") {
+            setCommandFromHistory("down");
         }
-        // clear field
-        setCommand("");
-        executeCommand(command, appContext);
+    }
+
+    const setCommandFromHistory = (dir: "up" | "down") => {
+        commandHistoryIndex.current = appContext.commandHistory.length === 0 ? 0 :
+            (commandHistoryIndex.current + (dir === "down" ? 1 : -1) + appContext.commandHistory.length) % appContext.commandHistory.length;
+        const command = appContext.commandHistory[commandHistoryIndex.current];
+        if (command) {
+            setCommand(command);
+        }
     }
 
     return (
@@ -39,7 +52,7 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
                     <input
                         type="text" disabled={disabled} autoFocus onBlur={preventBlur}
                         value={command} onChange={(e) => setCommand(e.target.value)}
-                        onKeyUp={handleEnterPressed}
+                        onKeyUp={handleKeyPressed}
                         className="bg-transparent outline-none absolute left-0 w-full caret-transparent opacity-0 z-[-1]"
                     />
                 }

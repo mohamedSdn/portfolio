@@ -1,5 +1,6 @@
 import { cat, cd, clear, help, ls, pwd, whoami } from "@/algorithms";
 import { IAppContext } from "@/contexts/app.context";
+import { Dispatch, SetStateAction } from "react";
 import { KnownCommands } from "./constants.util";
 
 export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContext, fullCommand: string, extraParams: string[]) => void> = {
@@ -17,6 +18,8 @@ export const executeCommand = (command: string, appContext: IAppContext) => {
         appContext.setQueryList(prev => [...prev, { directory: appContext.currentDirectory, command, result: null }]);
         return;
     }
+    // add to history
+    pushToCommandHistory(appContext.setCommandHistory, command);
     const [main, ...args] = parseCommand(command);
     const algo = COMMAND_ALGO_MAPPING[main as KnownCommands];
     if (!algo) {
@@ -24,6 +27,10 @@ export const executeCommand = (command: string, appContext: IAppContext) => {
         return;
     }
     algo(appContext, command, args);
+}
+
+const pushToCommandHistory = (setCommandHistory: Dispatch<SetStateAction<string[]>>, command: string) => {
+    setCommandHistory(prev => [...prev, command]);
 }
 
 const parseCommand = (command: string) => command.split(" ").filter(Boolean);
