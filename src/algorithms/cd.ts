@@ -12,7 +12,7 @@ export const cd = ({ currentDirectory, setCurrentDirectory, setQueryList }: IApp
         setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: null }]);
         return;
     }
-    let fullPath = extraParams[0].startsWith('/') ? extraParams[0] : `${currentDirectory}/${extraParams[0]}`;
+    let fullPath = extraParams[0].startsWith('/') ? extraParams[0] : `${currentDirectory === "/" ? "" : currentDirectory}/${extraParams[0]}`;
     try {
         absGoTo(fullPath);
         setCurrentDirectory(fullPath);
