@@ -40,11 +40,9 @@ const FILES_HIERARCHY: IFile[] = [
     },
 ];
 
-export const absGoTo = (path: string) => {
+export const absGoTo = (path: string[]) => {
     let root = FILES_HIERARCHY;
-    const directories = splitPath(path);
-    for (const directory of directories) {
-        console.log(directory)
+    for (const directory of path) {
         const index = root.findIndex(file => file.name === directory);
         if (index === -1) {
             throw "Path does not exist";

@@ -1,6 +1,7 @@
 // change directory algorithm
 import { IAppContext } from "@/contexts/app.context";
 import { absGoTo } from "@/utils/files.util";
+import { splitPath } from "@/utils/helpers.util";
 
 export const cd = ({ currentDirectory, setCurrentDirectory, setQueryList }: IAppContext, fullCommand: string, extraParams: string[]) => {
     if (extraParams.length > 1) {
@@ -14,7 +15,8 @@ export const cd = ({ currentDirectory, setCurrentDirectory, setQueryList }: IApp
     }
     let fullPath = extraParams[0].startsWith('/') ? extraParams[0] : `${currentDirectory === "/" ? "" : currentDirectory}/${extraParams[0]}`;
     try {
-        absGoTo(fullPath);
+        const directories = splitPath(fullPath);
+        absGoTo(directories);
         setCurrentDirectory(fullPath);
         setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: null }]);
     } catch (error: any) {

@@ -4,6 +4,7 @@ import { help } from "./help";
 import { ls } from "./ls";
 import { pwd } from "./pwd";
 import { whoami } from "./whoami";
+import { cat } from "./cat";
 
 export {
     help,
@@ -11,5 +12,6 @@ export {
     ls,
     cd,
     pwd,
-    whoami
+    whoami,
+    cat
 }

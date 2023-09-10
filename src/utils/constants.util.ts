@@ -5,6 +5,7 @@ export enum KnownCommands {
     CD = "cd",
     PWD = "pwd",
     WHOAMI = "whoami",
+    CAT = "cat",
 }
 
 export const KNOWN_COMMANDS = [...Object.values(KnownCommands)] as string[];

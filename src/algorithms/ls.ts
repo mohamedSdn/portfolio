@@ -1,6 +1,6 @@
 import { IAppContext } from "@/contexts/app.context";
 import { absGoTo } from "@/utils/files.util";
-import { formatLsOutput } from "@/utils/helpers.util";
+import { formatLsOutput, splitPath } from "@/utils/helpers.util";
 
 export const ls = ({ currentDirectory, setQueryList }: IAppContext, fullCommand: string, extraParams: string[]) => {
     if (extraParams.length > 1) {
@@ -11,7 +11,8 @@ export const ls = ({ currentDirectory, setQueryList }: IAppContext, fullCommand:
         extraParams[0].startsWith('/') ? extraParams[0] : `${currentDirectory === "/" ? "" : currentDirectory}/${extraParams[0]}` :
         currentDirectory;
     try {
-        const result = absGoTo(fullPath);
+        const directories = splitPath(fullPath);
+        const result = absGoTo(directories);
         const filesToDisplay = formatLsOutput(result);
         setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: filesToDisplay }]);
     } catch (error: any) {
