@@ -30,7 +30,12 @@ export const executeCommand = (command: string, appContext: IAppContext) => {
 }
 
 const pushToCommandHistory = (setCommandHistory: Dispatch<SetStateAction<string[]>>, command: string) => {
-    setCommandHistory(prev => [...prev, command]);
+    setCommandHistory(prev => {
+        if (prev[prev.length - 1] === command) {
+            return prev;
+        }
+        return [...prev, command];
+    });
 }
 
 const parseCommand = (command: string) => command.split(" ").filter(Boolean);
