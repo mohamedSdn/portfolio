@@ -1,7 +1,7 @@
 import { AppContext } from "@/contexts/app.context";
 import { executeCommand } from "@/utils/commands.util";
-import { FC, FocusEvent, KeyboardEvent, useContext, useRef, useState } from "react";
-import styles from './terminal-query.module.css';
+import { FC, useContext, useRef, useState } from "react";
+import CommandInput, { ICommandInputRef } from "./CommandInput";
 
 interface Props {
     directory: string,
@@ -14,19 +14,17 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
     const [command, setCommand] = useState(_command ?? "");
     const appContext = useContext(AppContext);
     const commandHistoryIndex = useRef(0);
+    const commandInputRef = useRef<ICommandInputRef>();
 
-    const preventBlur = (e: FocusEvent<HTMLInputElement>) => {
-        e.target.focus();
-    }
-
-    const handleKeyPressed = (e: KeyboardEvent) => {
-        if (e.code === "Enter") {
+    const handleKeyPressed = (keyCode: string) => {
+        if (keyCode === "Enter") {
             // clear field
             setCommand("");
+            commandHistoryIndex.current = 0;
             executeCommand(command, appContext);
-        } else if (e.code === "ArrowUp") {
+        } else if (keyCode === "ArrowUp") {
             setCommandFromHistory("up");
-        } else if (e.code === "ArrowDown") {
+        } else if (keyCode === "ArrowDown") {
             setCommandFromHistory("down");
         }
     }
@@ -37,6 +35,7 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
         const command = appContext.commandHistory[commandHistoryIndex.current];
         if (command) {
             setCommand(command);
+            commandInputRef.current?.updateCaretExplicit(command.length - 1);
         }
     }
 
@@ -47,18 +46,13 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
             <span className="text-[#628ac5]">{directory}</span>
             <span>$</span>
             <div className="relative grow ml-1">
-                {
-                    !disabled &&
-                    <input
-                        type="text" disabled={disabled} autoFocus onBlur={preventBlur}
-                        value={command} onChange={(e) => setCommand(e.target.value)}
-                        onKeyUp={handleKeyPressed}
-                        className="bg-transparent outline-none absolute left-0 w-full caret-transparent opacity-0 z-[-1]"
-                    />
-                }
-                <span className={`${disabled ? "" : styles["command-span"]} left-0 h-full`}>
-                    <pre>{command}</pre>
-                </span>
+                <CommandInput
+                    content={command}
+                    setContent={setCommand}
+                    onKeyPressed={handleKeyPressed}
+                    disabled={disabled}
+                    ref={commandInputRef}
+                />
             </div>
         </div>
     )

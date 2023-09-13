@@ -9,3 +9,5 @@ export enum KnownCommands {
 }
 
 export const KNOWN_COMMANDS = [...Object.values(KnownCommands)] as string[];
+
+export const ACCEPTABLE_CHAR_REGEX = /^[a-zA-Z0-9/\-\\\.\s]$/;
