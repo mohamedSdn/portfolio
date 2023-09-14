@@ -18,6 +18,7 @@ export const executeCommand = (command: string, appContext: IAppContext) => {
         appContext.setQueryList(prev => [...prev, { directory: appContext.currentDirectory, command, result: null }]);
         return;
     }
+    command = command.trim();
     // add to history
     pushToCommandHistory(appContext.setCommandHistory, command);
     const [main, ...args] = parseCommand(command);

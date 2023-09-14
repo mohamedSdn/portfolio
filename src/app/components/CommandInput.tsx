@@ -1,6 +1,6 @@
-import { Dispatch, FC, FocusEvent, KeyboardEvent, SetStateAction, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import styles from './command-input.module.css';
 import { appendAtIndex, deleteChar, isCharAcceptable } from "@/utils/helpers.util";
+import { Dispatch, FocusEvent, KeyboardEvent, SetStateAction, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import styles from './command-input.module.css';
 
 interface Props {
     content: string,
