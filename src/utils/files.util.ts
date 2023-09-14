@@ -1,5 +1,4 @@
 import { IDirectory, IFile } from "@/interfaces/file.interface";
-import { splitPath } from "./helpers.util";
 
 const FILES_HIERARCHY: IFile[] = [
     {
@@ -11,11 +10,15 @@ const FILES_HIERARCHY: IFile[] = [
                 isDirectory: true,
                 children: [
                     {
-                        name: "Plsp.txt",
+                        name: "BMLab.txt",
                         isDirectory: false
                     },
                     {
                         name: "Elc.txt",
+                        isDirectory: false
+                    },
+                    {
+                        name: "Plsp.txt",
                         isDirectory: false
                     },
                     {
