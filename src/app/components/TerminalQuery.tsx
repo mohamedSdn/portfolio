@@ -1,7 +1,7 @@
 import { AppContext } from "@/contexts/app.context";
 import { executeCommand } from "@/utils/commands.util";
 import { FC, useContext, useRef, useState } from "react";
-import CommandInput, { ICommandInputRef } from "./CommandInput";
+import CommandInput, { ICommandInputRef } from "./command-input/CommandInput";
 
 interface Props {
     directory: string,
@@ -17,7 +17,7 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
     const commandInputRef = useRef<ICommandInputRef>();
 
     const handleKeyPressed = (keyCode: string) => {
-        if (keyCode === "Enter") {
+        if (keyCode === "Enter" || keyCode === "NumpadEnter") {
             // clear field
             setCommand("");
             commandHistoryIndex.current = 0;
