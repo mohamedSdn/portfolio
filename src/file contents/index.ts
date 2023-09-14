@@ -28,7 +28,7 @@ const filesContents = [
             <div class="main-file-content">
                 <h2>Project BM Lab:</h2>
                 <p>
-                    A web application to help with management of medical laboratories: tracking patients, blood samples, planning resampling and handling payments. 
+                    A web application to help with the management of medical laboratories: tracking patients, blood samples, planning resampling and handling payments. 
                 </p>
                 <h3>Tools used:</h3>
                 <ul>

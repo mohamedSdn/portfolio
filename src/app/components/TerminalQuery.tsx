@@ -42,7 +42,7 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
 
     return (
         <div className="flex">
-            <span className="text-[#72dd34]">you@portfolio</span>
+            <span className="text-[#72dd34]">guest@portfolio</span>
             <span className="mx-[2px]">:</span>
             <span className="text-[#628ac5]">{directory}</span>
             <span>$</span>
