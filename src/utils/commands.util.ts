@@ -2,6 +2,8 @@ import { cat, cd, clear, help, ls, pwd, whoami } from "@/algorithms";
 import { IAppContext } from "@/contexts/app.context";
 import { Dispatch, SetStateAction } from "react";
 import { KnownCommands } from "./constants.util";
+import { absGoTo } from "./files.util";
+import { getSimilarWords, splitPath } from "./helpers.util";
 
 export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContext, fullCommand: string, extraParams: string[]) => void> = {
     [KnownCommands.HELP]: help,
@@ -39,4 +41,18 @@ const pushToCommandHistory = (setCommandHistory: Dispatch<SetStateAction<string[
     });
 }
 
-const parseCommand = (command: string) => command.split(" ").filter(Boolean);
+export const parseCommand = (command: string) => command.split(" ").filter(Boolean);
+
+export const tryPredictArgs = (command: string, currentDirectory: string) => {
+    const [main, ...args] = parseCommand(command);
+    if (!([KnownCommands.CAT, KnownCommands.CD, KnownCommands.LS] as string[]).includes(main)) {
+        return command;
+    }
+    const lastElemet = args.at(-1) ?? "";
+    const files = absGoTo(splitPath(currentDirectory));
+    const similar = getSimilarWords(lastElemet, files.map(child => child.name))[0];
+    if (!similar) {
+        return command;
+    }
+    return [main, ...args.slice(0, -1), similar].join(" ");
+}

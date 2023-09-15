@@ -1,6 +1,6 @@
 import { AppContext } from "@/contexts/app.context";
-import { executeCommand } from "@/utils/commands.util";
-import { FC, useContext, useRef, useState } from "react";
+import { executeCommand, tryPredictArgs } from "@/utils/commands.util";
+import { FC, KeyboardEvent, useContext, useRef, useState } from "react";
 import CommandInput, { ICommandInputRef } from "./command-input/CommandInput";
 
 interface Props {
@@ -16,17 +16,22 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
     const commandHistoryIndex = useRef(0);
     const commandInputRef = useRef<ICommandInputRef>();
 
-    const handleKeyPressed = (keyCode: string) => {
-        if (keyCode === "Enter" || keyCode === "NumpadEnter") {
+    const handleKeyPressed = (e: KeyboardEvent) => {
+        if (e.code === "Enter" || e.code === "NumpadEnter") {
             // clear field
             setCommand("");
             commandHistoryIndex.current = 0;
-            commandInputRef.current?.updateCaretExplicit(-1);
+            commandInputRef.current?.updateCaretExplicit(0);
             executeCommand(command, appContext);
-        } else if (keyCode === "ArrowUp") {
+        } else if (e.code === "ArrowUp") {
             setCommandFromHistory("up");
-        } else if (keyCode === "ArrowDown") {
+        } else if (e.code === "ArrowDown") {
             setCommandFromHistory("down");
+        } else if (e.code === "Tab") {
+            e.preventDefault();
+            const newCommand = tryPredictArgs(command, appContext.currentDirectory);
+            setCommand(newCommand);
+            commandInputRef.current?.updateCaretExplicit(newCommand.length);
         }
     }
 
@@ -36,7 +41,7 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
         const command = appContext.commandHistory[commandHistoryIndex.current];
         if (command) {
             setCommand(command);
-            commandInputRef.current?.updateCaretExplicit(command.length - 1);
+            commandInputRef.current?.updateCaretExplicit(command.length);
         }
     }
 

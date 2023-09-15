@@ -14,15 +14,23 @@ export const formatLsOutput = (input: IFile[]) => {
 }
 
 export const appendAtIndex = (str: string, index: number, newContent: string) => {
+    index = index < 0 ? 0 : index;
     const start = str.slice(0, index);
     const end = str.slice(index);
     return start + newContent + end;
 }
 
 export const deleteChar = (str: string, index: number) => {
+    if (index < 0) {
+        return str;
+    }
     const start = str.slice(0, index);
     const end = str.slice(index + 1);
     return start + end;
 }
 
 export const isCharAcceptable = (char: string) => ACCEPTABLE_CHAR_REGEX.test(char);
+
+export const getSimilarWords = (word: string, words: string[]) => {
+    return words.filter(_word => _word.startsWith(word));
+}

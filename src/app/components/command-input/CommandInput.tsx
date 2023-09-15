@@ -5,7 +5,7 @@ import styles from './command-input.module.css';
 interface Props {
     content: string,
     setContent: Dispatch<SetStateAction<string>>,
-    onKeyPressed: (keyCode: string) => void,
+    onKeyPressed: (event: KeyboardEvent) => void,
     disabled?: boolean,
 }
 
@@ -16,7 +16,7 @@ export interface ICommandInputRef {
 const CommandInput = forwardRef<ICommandInputRef | undefined, Props>(({ content, setContent, onKeyPressed, disabled = true }, ref) => {
 
     const inputRef = useRef<HTMLSpanElement | null>(null);
-    const [caretIndex, setCaretIndex] = useState(content.length - 1);
+    const [caretIndex, setCaretIndex] = useState(content.length);
 
     const preventBlur = (e: FocusEvent<HTMLInputElement>) => {
         e.target.focus();
@@ -24,7 +24,7 @@ const CommandInput = forwardRef<ICommandInputRef | undefined, Props>(({ content,
 
     const handleKeyPressed = (e: KeyboardEvent) => {
         if (isCharAcceptable(e.key)) {
-            setContent(prev => appendAtIndex(prev, caretIndex + 1, e.key));
+            setContent(prev => appendAtIndex(prev, caretIndex, e.key));
             // don't use moveToCaret it depends on content which at this point still hasn't been updated
             setCaretIndex(prev => prev + 1);
         } else if (e.code === "ArrowLeft") {
@@ -32,22 +32,20 @@ const CommandInput = forwardRef<ICommandInputRef | undefined, Props>(({ content,
         } else if (e.code === "ArrowRight") {
             moveCaretTo(caretIndex + 1);
         } else if (e.code === "Backspace") {
-            setContent(prev => deleteChar(prev, caretIndex));
+            setContent(prev => deleteChar(prev, caretIndex - 1));
             moveCaretTo(caretIndex - 1);
         } else if (e.code === "Delete") {
             setContent(prev => deleteChar(prev, caretIndex + 1));
         } else {
-            onKeyPressed(e.code);
+            onKeyPressed(e);
         }
     }
 
     const moveCaretTo = (position: number) => {
-        if (position < 0 && content.length > 0) {
+        if (position < 0) {
             position = 0;
-        } else if (position < -1) {
-            position = -1;
-        } else if (position > content.length - 1) {
-            position = content.length - 1;
+        } else if (position > content.length) {
+            position = content.length;
         }
         setCaretIndex(position);
     }
@@ -80,6 +78,9 @@ const CommandInput = forwardRef<ICommandInputRef | undefined, Props>(({ content,
                     {char}
                 </span>
             ))}
+            <span
+                className={`h-full min-w-[.5rem] inline-flex justify-center ${(content.length === caretIndex && !disabled) ? styles.selected : ""}`}
+            ></span>
         </span>
     )
 });
