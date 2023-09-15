@@ -21,7 +21,7 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
             // clear field
             setCommand("");
             commandHistoryIndex.current = 0;
-            commandInputRef.current?.updateCaretExplicit(-1);
+            commandInputRef.current?.updateCaretExplicit(0);
             executeCommand(command, appContext);
         } else if (keyCode === "ArrowUp") {
             setCommandFromHistory("up");
@@ -36,7 +36,7 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
         const command = appContext.commandHistory[commandHistoryIndex.current];
         if (command) {
             setCommand(command);
-            commandInputRef.current?.updateCaretExplicit(command.length - 1);
+            commandInputRef.current?.updateCaretExplicit(command.length);
         }
     }
 
