@@ -5,7 +5,7 @@ import styles from './command-input.module.css';
 interface Props {
     content: string,
     setContent: Dispatch<SetStateAction<string>>,
-    onKeyPressed: (keyCode: string) => void,
+    onKeyPressed: (event: KeyboardEvent) => void,
     disabled?: boolean,
 }
 
@@ -37,7 +37,7 @@ const CommandInput = forwardRef<ICommandInputRef | undefined, Props>(({ content,
         } else if (e.code === "Delete") {
             setContent(prev => deleteChar(prev, caretIndex + 1));
         } else {
-            onKeyPressed(e.code);
+            onKeyPressed(e);
         }
     }
 

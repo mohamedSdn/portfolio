@@ -30,3 +30,7 @@ export const deleteChar = (str: string, index: number) => {
 }
 
 export const isCharAcceptable = (char: string) => ACCEPTABLE_CHAR_REGEX.test(char);
+
+export const getSimilarWords = (word: string, words: string[]) => {
+    return words.filter(_word => _word.startsWith(word));
+}
