@@ -10,6 +10,10 @@ const FILES_HIERARCHY: IFile[] = [
                 isDirectory: true,
                 children: [
                     {
+                        name: "Babashop.txt",
+                        isDirectory: false
+                    },
+                    {
                         name: "BMLab.txt",
                         isDirectory: false
                     },

@@ -23,6 +23,23 @@ const filesContents = [
         `
     },
     {
+        filename: "BabaShop.txt",
+        content: `
+            <div class="main-file-content">
+                <h2>Project BabaShop:</h2>
+                <p>
+                    An e-commerce web application that offers registration & ads services to store owners to publish their products
+                </p>
+                <h3>Tools used:</h3>
+                <ul>
+                    <li>Angular@8.2.14</li>
+                    <li>Laravel@5.8.0</li>
+                    <li>MySQL</li>
+                </ul>
+            <div>
+        `
+    },
+    {
         filename: "BMLab.txt",
         content: `
             <div class="main-file-content">
