@@ -1,0 +1,14 @@
+.decorated {
+    position: relative;
+    padding-left: 1rem;
+}
+
+.decorated::before {
+    position: absolute;
+    content: "";
+    top: 5%;
+    bottom: 5%;
+    left: 0;
+    width: .3rem;
+    background-color: #32a852;
+}
