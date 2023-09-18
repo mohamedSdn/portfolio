@@ -8,7 +8,7 @@ const Terminal = () => {
     const { queryList, currentDirectory } = useContext(AppContext);
 
     return (
-        <div className="w-full h-full bg-[#222] text-white overflow-y-auto">
+        <div className="w-full h-full overflow-y-auto">
             Portfolio [Version 0.1.0]
             {
                 queryList.map((query, index) => {

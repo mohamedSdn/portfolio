@@ -3,9 +3,6 @@ import { AppContext } from "@/contexts/app.context";
 import Terminal from "./components/Terminal";
 import { useState } from "react";
 import { IQuery } from "@/interfaces/query.interface";
-// styles
-import "./../styles/main.css";
-import "./../styles/terminal-result.css";
 
 export default function Home() {
 

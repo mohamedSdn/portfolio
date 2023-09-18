@@ -1,5 +1,5 @@
 import { IAppContext } from "@/contexts/app.context";
-import filesContents from "@/file contents";
+import fileContents from "@/file contents";
 import { absGoTo } from "@/utils/files.util";
 import { splitPath } from "@/utils/helpers.util";
 
@@ -17,7 +17,7 @@ export const cat = ({ currentDirectory, setQueryList }: IAppContext, fullCommand
             setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: "No such file" }]);
             return;
         }
-        const content = filesContents.find(fileContent => fileContent.filename === file.name)?.content;
+        const content = fileContents.find(fileContent => fileContent.filename === file.name)?.content;
         setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: content ?? "File is empty" }]);
     } catch (error: any) {
         setQueryList(prev => [...prev, { directory: currentDirectory, command: fullCommand, result: error.toString() }]);
