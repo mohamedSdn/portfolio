@@ -1,5 +1,4 @@
 const generateHTMLContent = (project: { projectName: string, description: string, slug: string }) => {
-    console.log(project)
     return `
         <div class="main-file-content">
             <h2>Project ${project.projectName}:</h2>

@@ -11,6 +11,7 @@
     margin-bottom: .5rem;
 }
 
-.main-file-content ul {
-    list-style: inside;
+.main-file-content a {
+    color: #3a7ff0;
+    text-decoration: underline;
 }
