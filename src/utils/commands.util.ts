@@ -16,11 +16,11 @@ export const COMMAND_ALGO_MAPPING: Record<KnownCommands, (appContext: IAppContex
 }
 
 export const executeCommand = (command: string, appContext: IAppContext) => {
+    command = command.trim();
     if (!command) {
         appContext.setQueryList(prev => [...prev, { directory: appContext.currentDirectory, command, result: null }]);
         return;
     }
-    command = command.trim();
     // add to history
     pushToCommandHistory(appContext.setCommandHistory, command);
     const [main, ...args] = parseCommand(command);
