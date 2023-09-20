@@ -36,9 +36,8 @@ const CommandInput = forwardRef<ICommandInputRef | undefined, Props>(({ content,
             moveCaretTo(caretIndex - 1);
         } else if (e.code === "Delete") {
             setContent(prev => deleteChar(prev, caretIndex + 1));
-        } else {
-            onKeyPressed(e);
         }
+        onKeyPressed(e);
     }
 
     const moveCaretTo = (position: number) => {

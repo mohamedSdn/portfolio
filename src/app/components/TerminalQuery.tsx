@@ -1,7 +1,8 @@
 import { AppContext } from "@/contexts/app.context";
 import { executeCommand, tryPredictArgs } from "@/utils/commands.util";
 import { FC, KeyboardEvent, useContext, useRef, useState } from "react";
-import CommandInput, { ICommandInputRef } from "./command-input/CommandInput";
+import CommandInput, { ICommandInputRef } from "../../shared/components/command-input/CommandInput";
+import { isCharAcceptable } from "@/utils/helpers.util";
 
 interface Props {
     directory: string,
@@ -14,10 +15,19 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
     const [command, setCommand] = useState(_command ?? "");
     const appContext = useContext(AppContext);
     const commandHistoryIndex = useRef(0);
+    const commandPrediction = useRef({
+        command,
+        iteration: 0
+    });
     const commandInputRef = useRef<ICommandInputRef>();
 
     const handleKeyPressed = (e: KeyboardEvent) => {
-        if (e.code === "Enter" || e.code === "NumpadEnter") {
+        if (isCharAcceptable(e.key) || e.code === "Backspace" || e.code === "Delete") {
+            commandPrediction.current.command = "";
+            commandPrediction.current.iteration = 0;
+        } else if (e.code === "Enter" || e.code === "NumpadEnter") {
+            commandPrediction.current.iteration = 0;
+            commandPrediction.current.command = "";
             // clear field
             setCommand("");
             commandHistoryIndex.current = 0;
@@ -28,8 +38,13 @@ const TerminalQuery: FC<Props> = ({ directory, command: _command, disabled = tru
         } else if (e.code === "ArrowDown") {
             setCommandFromHistory("down");
         } else if (e.code === "Tab") {
+            console.log(commandPrediction.current)
             e.preventDefault();
-            const newCommand = tryPredictArgs(command, appContext.currentDirectory);
+            if (commandPrediction.current.command.trim() === "") {
+                commandPrediction.current.command = command;
+            }
+            const newCommand = tryPredictArgs(commandPrediction.current.command, appContext.currentDirectory, commandPrediction.current.iteration);
+            commandPrediction.current.iteration++;
             setCommand(newCommand);
             commandInputRef.current?.updateCaretExplicit(newCommand.length);
         }
