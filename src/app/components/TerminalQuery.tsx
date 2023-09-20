@@ -47,7 +47,6 @@ const TerminalQuery: FC<Props> = ({
         } else if (e.code === "ArrowDown") {
             setCommandFromHistory("down");
         } else if (e.code === "Tab") {
-            console.log(commandPrediction.current);
             e.preventDefault();
             if (commandPrediction.current.command.trim() === "") {
                 commandPrediction.current.command = command;
