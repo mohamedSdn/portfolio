@@ -81,9 +81,7 @@ const CommandInput = forwardRef<ICommandInputRef | undefined, Props>(
                 tabIndex={disabled ? -1 : 0}
                 onKeyDown={handleKeyPressed}
                 onBlur={preventBlur}
-                className={`${
-                    disabled ? "" : styles["command-span"]
-                } inline-flex items-center h-6 outline-none`}
+                className="inline-flex items-center h-6 outline-none"
             >
                 {content.split("").map((char, index) => (
                     <span
