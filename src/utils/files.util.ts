@@ -32,7 +32,7 @@ const FILES_HIERARCHY: IFile[] = [
                     {
                         name: "eMotion.txt",
                         isDirectory: false
-                    },
+                    }
                 ]
             },
             {
@@ -44,13 +44,13 @@ const FILES_HIERARCHY: IFile[] = [
                 isDirectory: false
             }
         ]
-    },
+    }
 ];
 
 export const absGoTo = (path: string[]) => {
     let root = FILES_HIERARCHY;
     for (const directory of path) {
-        const index = root.findIndex(file => file.name === directory);
+        const index = root.findIndex((file) => file.name === directory);
         if (index === -1) {
             throw "Path does not exist";
         }
@@ -59,7 +59,7 @@ export const absGoTo = (path: string[]) => {
         root = _directory.children;
     }
     return root;
-}
+};
 
 function isDirectory(file: IFile): asserts file is IDirectory {
     if (!file.isDirectory) {

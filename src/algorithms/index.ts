@@ -6,12 +6,4 @@ import { pwd } from "./pwd";
 import { whoami } from "./whoami";
 import { cat } from "./cat";
 
-export {
-    help,
-    clear,
-    ls,
-    cd,
-    pwd,
-    whoami,
-    cat
-}
+export { help, clear, ls, cd, pwd, whoami, cat };
