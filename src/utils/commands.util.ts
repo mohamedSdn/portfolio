@@ -77,11 +77,19 @@ export const tryPredictArgs = (
     ) {
         return command;
     }
+    const fileTypeToPredict: "dir" | "file" =
+        main === KnownCommands.CAT ? "file" : "dir";
     const lastElemet = args.at(-1) ?? "";
     const files = absGoTo(splitPath(currentDirectory));
     const similarWords = getSimilarWords(
         lastElemet,
-        files.map((child) => child.name)
+        files
+            .filter(
+                (child) =>
+                    (fileTypeToPredict === "dir" && child.isDirectory) ||
+                    (fileTypeToPredict === "file" && !child.isDirectory)
+            )
+            .map((child) => child.name)
     );
     if (similarWords.length === 0) {
         return command;
