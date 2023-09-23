@@ -1,7 +1,7 @@
 import { cat, cd, clear, help, ls, pwd, whoami } from "@/algorithms";
 import { IAppContext } from "@/contexts/app.context";
 import { Dispatch, SetStateAction } from "react";
-import { KnownCommands } from "./constants.util";
+import { KNOWN_COMMANDS, KnownCommands } from "./constants.util";
 import { absGoTo } from "./files.util";
 import { getSimilarWords, splitPath } from "./helpers.util";
 
@@ -96,4 +96,18 @@ export const tryPredictArgs = (
     }
     const selected = similarWords[iteration % similarWords.length];
     return [main, ...args.slice(0, -1), selected].join(" ");
+};
+
+export const prettyPrint = (command: string) => {
+    let highlightOn = false;
+    const [main] = parseCommand(command);
+    if (KNOWN_COMMANDS.includes(main)) {
+        highlightOn = true;
+    }
+    const chars = command.split("");
+    const result = chars.map((char, index) => ({
+        char,
+        highlight: highlightOn && index < main.length
+    }));
+    return result;
 };
