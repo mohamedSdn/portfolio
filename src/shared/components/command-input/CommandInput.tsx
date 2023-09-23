@@ -15,6 +15,7 @@ import {
     useState
 } from "react";
 import styles from "./command-input.module.css";
+import { prettyPrint } from "@/utils/commands.util";
 
 interface Props {
     content: string;
@@ -29,6 +30,7 @@ export interface ICommandInputRef {
 
 const CommandInput = forwardRef<ICommandInputRef | undefined, Props>(
     ({ content, setContent, onKeyPressed, disabled = true }, ref) => {
+        const prettyContent = prettyPrint(content);
         const inputRef = useRef<HTMLSpanElement | null>(null);
         const [caretIndex, setCaretIndex] = useState(content.length);
 
@@ -83,14 +85,14 @@ const CommandInput = forwardRef<ICommandInputRef | undefined, Props>(
                 onBlur={preventBlur}
                 className="inline-flex items-center h-6 outline-none"
             >
-                {content.split("").map((char, index) => (
+                {prettyContent.map(({ char, highlight }, index) => (
                     <span
                         key={index}
                         className={`h-full min-w-[.5rem] inline-flex justify-center ${
                             index === caretIndex && !disabled
                                 ? styles.selected
                                 : ""
-                        }`}
+                        } ${ highlight ? "text-[cyan]" : "" }`}
                     >
                         {char}
                     </span>
