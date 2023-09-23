@@ -25,7 +25,7 @@ const Project: NextPage<PageProps> = ({ params }) => {
     }
     return (
         <div className="h-full p-4">
-            <h1 className={`${styles.decorated} uppercase my-5`}>
+            <h1 className={`${styles.decorated} uppercase my-5 font-extrabold`}>
                 {file.projectName}
             </h1>
             <div className="relative rounded-lg my-10 p-4 pt-8 border-white border-[1px] border-dashed">
