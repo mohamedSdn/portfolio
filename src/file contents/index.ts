@@ -33,10 +33,32 @@ const fileContents = [
             <div class="main-file-content">
                 <h2>Portfolio</h2>
                 <p>
-                    This is a simple web application that I wanted to implement as a way to learn NextJs
+                    This is a simple command line style web application that I wanted to implement as a way to learn NextJs
                 </p>
             <div>
         `
+    },
+    {
+        filename: "Naftal.txt",
+        slug: "naftal",
+        projectName: "Naftal App",
+        description: `A web application to help manage interventions in case of equipment failures at petroleum products storage centers, It has a forum where workerscan ask and
+            answer questions plus the ability to upvote and downvote, It communicates a Rest api that exposes 2 endpoints: one to get failure predictions and another
+            to provide questions similar to the one a user is currently viewing`,
+        toolsUsed: [
+            "Laravel@6.2",
+            "JQuery",
+            "Django",
+            "Django Rest Framework",
+            "MySQL"
+        ],
+        get content() {
+            return generateHTMLContent({
+                projectName: this.projectName,
+                description: this.description,
+                slug: this.slug
+            });
+        }
     },
     {
         filename: "BabaShop.txt",
