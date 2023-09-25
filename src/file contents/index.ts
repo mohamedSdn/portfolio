@@ -1,15 +1,15 @@
 const generateHTMLContent = (project: {
-    projectName: string;
+    title: string;
     description: string;
-    slug: string;
+    link: string;
 }) => {
     return `
         <div class="main-file-content">
-            <h2>Project ${project.projectName}:</h2>
+            <h2>${project.title}:</h2>
             <p>
                 ${project.description}
             </p>
-            <a href="/projects/${project.slug}" target="_blank">Read more</a>
+            <a href="${project.link}" target="_blank">Read more</a>
         <div>
     `;
 };
@@ -17,15 +17,16 @@ const generateHTMLContent = (project: {
 const fileContents = [
     {
         filename: "aboutme.txt",
-        content: `
-            <div class="main-file-content">
-                <h2>Mohamed Soudani</h2>
-                <p>
-                    A motivated software engineer, graduate from the higher national school of computer science, mostly experienced in web development seeking to
-                    develop my skills and learn more about the art of computer programming
-                </p>
-            <div>
-        `
+        description: `
+            A motivated software engineer, graduate from the higher national school of computer science, mostly experienced in web development seeking to
+            develop my skills and learn more about the art of computer programming`,
+        get content() {
+            return generateHTMLContent({
+                title: `Mohamed Soudani`,
+                description: this.description,
+                link: `/aboutme`
+            });
+        }
     },
     {
         filename: "readme.txt",
@@ -54,9 +55,9 @@ const fileContents = [
         ],
         get content() {
             return generateHTMLContent({
-                projectName: this.projectName,
+                title: `Project ${this.projectName}`,
                 description: this.description,
-                slug: this.slug
+                link: `/projects/${this.slug}`
             });
         }
     },
@@ -69,9 +70,9 @@ const fileContents = [
         toolsUsed: ["Angular@8.2.14", "Laravel@5.8.0", "MySQL"],
         get content() {
             return generateHTMLContent({
-                projectName: this.projectName,
+                title: `Project ${this.projectName}`,
                 description: this.description,
-                slug: this.slug
+                link: `/projects/${this.slug}`
             });
         }
     },
@@ -84,9 +85,9 @@ const fileContents = [
         toolsUsed: ["React@18.2.0", ".NET Core@6.0.0"],
         get content() {
             return generateHTMLContent({
-                projectName: this.projectName,
+                title: `Project ${this.projectName}`,
                 description: this.description,
-                slug: this.slug
+                link: `/projects/${this.slug}`
             });
         }
     },
@@ -99,9 +100,9 @@ const fileContents = [
         toolsUsed: ["Angular@13.1.0", "Express@4.17.3", "Mongo@5.0.9"],
         get content() {
             return generateHTMLContent({
-                projectName: this.projectName,
+                title: `Project ${this.projectName}`,
                 description: this.description,
-                slug: this.slug
+                link: `/projects/${this.slug}`
             });
         }
     },
@@ -114,9 +115,9 @@ const fileContents = [
         toolsUsed: ["Angular@14.0.0", "Express@4.18.0", "Mongo@5.0.9"],
         get content() {
             return generateHTMLContent({
-                projectName: this.projectName,
+                title: `Project ${this.projectName}`,
                 description: this.description,
-                slug: this.slug
+                link: `/projects/${this.slug}`
             });
         }
     },
@@ -129,9 +130,9 @@ const fileContents = [
         toolsUsed: ["Angular@14.0.0", "Express@4.18.2", "Mongo@5.0.9"],
         get content() {
             return generateHTMLContent({
-                projectName: this.projectName,
+                title: `Project ${this.projectName}`,
                 description: this.description,
-                slug: this.slug
+                link: `/projects/${this.slug}`
             });
         }
     },
@@ -144,9 +145,9 @@ const fileContents = [
         toolsUsed: ["NextJs@13.4.12"],
         get content() {
             return generateHTMLContent({
-                projectName: this.projectName,
+                title: `Project ${this.projectName}`,
                 description: this.description,
-                slug: this.slug
+                link: `/projects/${this.slug}`
             });
         }
     }
