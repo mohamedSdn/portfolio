@@ -1,4 +1,4 @@
-import { cat, cd, clear, help, ls, pwd, whoami } from "@/algorithms";
+import { cat, cd, clear, help, ls, pwd, starme, whoami } from "@/algorithms";
 import { IAppContext } from "@/contexts/app.context";
 import { Dispatch, SetStateAction } from "react";
 import { KNOWN_COMMANDS, KnownCommands } from "./constants.util";
@@ -19,7 +19,8 @@ export const COMMAND_ALGO_MAPPING: Record<
     [KnownCommands.CD]: cd,
     [KnownCommands.PWD]: pwd,
     [KnownCommands.WHOAMI]: whoami,
-    [KnownCommands.CAT]: cat
+    [KnownCommands.CAT]: cat,
+    [KnownCommands.STARME]: starme
 };
 
 export const executeCommand = (command: string, appContext: IAppContext) => {

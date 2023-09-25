@@ -9,3 +9,18 @@ h2 {
 h3 {
     font-size: 1.1rem !important;
 }
+
+.decorated {
+    position: relative;
+    padding-left: 1rem;
+}
+
+.decorated::before {
+    position: absolute;
+    content: "";
+    top: 5%;
+    bottom: 5%;
+    left: 0;
+    width: 0.3rem;
+    background-color: var(--primary-color);
+}
