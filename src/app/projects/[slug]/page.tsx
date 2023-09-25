@@ -1,3 +1,4 @@
+import DashedBox from "@/app/components/DashedBox";
 import fileContents from "@/file contents";
 import { Metadata, NextPage } from "next";
 import { notFound } from "next/navigation";
@@ -36,22 +37,16 @@ const Project: NextPage<PageProps> = ({ params }) => {
             <h1 className={`decorated uppercase my-5 font-extrabold`}>
                 {file.projectName}
             </h1>
-            <div className="relative rounded-lg my-10 p-4 pt-8 border-white border-[1px] border-dashed">
-                <h3 className="text-primary-color border-white rounded-md border-[1px] inline-block px-4 py-1 absolute top-0 translate-y-[-50%] bg-[#222]">
-                    Description
-                </h3>
+            <DashedBox title="Description">
                 <p>{file?.description}</p>
-            </div>
-            <div className="relative rounded-lg my-10 p-4 pt-8 border-white border-[1px] border-dashed">
-                <h3 className="text-primary-color border-white rounded-md border-[1px] inline-block px-4 py-1 absolute top-0 translate-y-[-50%] bg-[#222]">
-                    Tools Used
-                </h3>
+            </DashedBox>
+            <DashedBox title="Tools Used">
                 <ul>
                     {file.toolsUsed?.map((tool, index) => (
                         <li key={index}>{tool}</li>
                     ))}
                 </ul>
-            </div>
+            </DashedBox>
         </div>
     );
 };

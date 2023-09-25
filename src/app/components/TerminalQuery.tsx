@@ -1,9 +1,7 @@
 import { AppContext } from "@/contexts/app.context";
 import { executeCommand, tryPredictArgs } from "@/utils/commands.util";
 import { FC, KeyboardEvent, useContext, useRef, useState } from "react";
-import CommandInput, {
-    ICommandInputRef
-} from "../../shared/components/command-input/CommandInput";
+import CommandInput, { ICommandInputRef } from "./command-input/CommandInput";
 import { isCharAcceptable } from "@/utils/helpers.util";
 
 interface Props {
