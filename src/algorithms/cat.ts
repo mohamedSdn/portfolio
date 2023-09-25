@@ -8,7 +8,7 @@ export const cat = (
     fullCommand: string,
     extraParams: string[]
 ) => {
-    if (extraParams.length > 1) {
+    if (extraParams.length === 0 || extraParams.length > 1) {
         setQueryList((prev) => [
             ...prev,
             {
