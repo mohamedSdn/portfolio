@@ -2,7 +2,12 @@ import fileContents from "@/file contents";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { IoLogoLinkedin, IoLogoGithub, IoMailOutline } from "react-icons/io5";
+import {
+    IoLogoLinkedin,
+    IoLogoGithub,
+    IoMailOutline,
+    IoLogoStackoverflow
+} from "react-icons/io5";
 import DashedBox from "../components/DashedBox";
 import styles from "./aboutme.module.css";
 
@@ -46,7 +51,7 @@ const AboutMe = () => {
                     </p>
                 </DashedBox>
             </div>
-            <div className="py-10 grow-0 shrink-0 flex items-center justify-center gap-20">
+            <div className="py-10 grow-0 shrink-0 flex items-center justify-center gap-20 flex-wrap">
                 <div className={`relative ${styles["tooltip-container"]}`}>
                     <div
                         className={`${styles["tooltip"]} absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap text-white bg-blue-500 font-bold px-3 py-2 rounded-lg`}
@@ -91,6 +96,24 @@ const AboutMe = () => {
                         <IoLogoLinkedin
                             size={50}
                             className="hover:text-[#0072b1]"
+                        />
+                    </Link>
+                </div>
+                <div className={`relative ${styles["tooltip-container"]}`}>
+                    <div
+                        className={`${styles["tooltip"]} absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap text-white bg-[#f48024] font-bold px-3 py-2 rounded-lg`}
+                    >
+                        Stack Overflow account
+                    </div>
+                    <Link
+                        href={
+                            "https://stackoverflow.com/users/13061990/mohamedsdn"
+                        }
+                        target="_blank"
+                    >
+                        <IoLogoStackoverflow
+                            size={50}
+                            className="hover:text-[#f48024]"
                         />
                     </Link>
                 </div>
