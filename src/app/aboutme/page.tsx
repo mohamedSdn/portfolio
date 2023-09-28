@@ -2,8 +2,9 @@ import fileContents from "@/file contents";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { IoLogoLinkedin, IoLogoGithub } from "react-icons/io5";
+import { IoLogoLinkedin, IoLogoGithub, IoMailOutline } from "react-icons/io5";
 import DashedBox from "../components/DashedBox";
+import styles from "./aboutme.module.css";
 
 export const metadata: Metadata = {
     title: "Mohamed Soudani"
@@ -46,20 +47,53 @@ const AboutMe = () => {
                 </DashedBox>
             </div>
             <div className="py-10 grow-0 shrink-0 flex items-center justify-center gap-20">
-                <Link href={"https://github.com/mohamedSdn"} target="_blank">
-                    <IoLogoGithub size={50} className="hover:text-[#6e7681]" />
-                </Link>
-                <Link
-                    href={
-                        "https://www.linkedin.com/in/mohamed-soudani-7a9a8716b"
-                    }
-                    target="_blank"
-                >
-                    <IoLogoLinkedin
-                        size={50}
-                        className="hover:text-[#0072b1]"
-                    />
-                </Link>
+                <div className={`relative ${styles["tooltip-container"]}`}>
+                    <div
+                        className={`${styles["tooltip"]} absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap text-white bg-blue-500 font-bold px-3 py-2 rounded-lg`}
+                    >
+                        Send an email
+                    </div>
+                    <Link href={"mailto:m.soudani@esi-sba.dz"} target="_blank">
+                        <IoMailOutline
+                            size={50}
+                            className="hover:text-blue-500"
+                        />
+                    </Link>
+                </div>
+                <div className={`relative ${styles["tooltip-container"]}`}>
+                    <div
+                        className={`${styles["tooltip"]} absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap text-white bg-[#6e7681] font-bold px-3 py-2 rounded-lg`}
+                    >
+                        Github account
+                    </div>
+                    <Link
+                        href={"https://github.com/mohamedSdn"}
+                        target="_blank"
+                    >
+                        <IoLogoGithub
+                            size={50}
+                            className="hover:text-[#6e7681]"
+                        />
+                    </Link>
+                </div>
+                <div className={`relative ${styles["tooltip-container"]}`}>
+                    <div
+                        className={`${styles["tooltip"]} absolute -top-14 left-1/2 -translate-x-1/2 whitespace-nowrap text-white bg-[#0072b1] font-bold px-3 py-2 rounded-lg`}
+                    >
+                        Linkedin profile
+                    </div>
+                    <Link
+                        href={
+                            "https://www.linkedin.com/in/mohamed-soudani-7a9a8716b"
+                        }
+                        target="_blank"
+                    >
+                        <IoLogoLinkedin
+                            size={50}
+                            className="hover:text-[#0072b1]"
+                        />
+                    </Link>
+                </div>
             </div>
         </div>
     );
